@@ -1,103 +1,302 @@
-import Image from "next/image";
+"use client";
+
+import { CKEditor, useCKEditorCloud } from "@ckeditor/ckeditor5-react";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const cloud = useCKEditorCloud({
+    version: "44.2.1",
+    premium: false,
+  });
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+  if (cloud.status === "error") {
+    return <div>Error!</div>;
+  }
+
+  if (cloud.status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  const {
+    BalloonEditor,
+    Alignment,
+    AutoImage,
+    AutoLink,
+    Autosave,
+    BlockQuote,
+    BlockToolbar,
+    Bold,
+    Bookmark,
+    Code,
+    CodeBlock,
+    Essentials,
+    FindAndReplace,
+    FontBackgroundColor,
+    FontColor,
+    FontFamily,
+    FontSize,
+    GeneralHtmlSupport,
+    Heading,
+    Highlight,
+    HorizontalLine,
+    HtmlComment,
+    HtmlEmbed,
+    ImageBlock,
+    ImageCaption,
+    ImageInline,
+    ImageInsert,
+    ImageInsertViaUrl,
+    ImageResize,
+    ImageStyle,
+    ImageTextAlternative,
+    ImageToolbar,
+    ImageUpload,
+    Indent,
+    IndentBlock,
+    Italic,
+    Link,
+    LinkImage,
+    List,
+    ListProperties,
+    MediaEmbed,
+    Mention,
+    PageBreak,
+    Paragraph,
+    PasteFromOffice,
+    RemoveFormat,
+    ShowBlocks,
+    SimpleUploadAdapter,
+    SpecialCharacters,
+    SpecialCharactersArrows,
+    SpecialCharactersCurrency,
+    SpecialCharactersEssentials,
+    SpecialCharactersLatin,
+    SpecialCharactersMathematical,
+    SpecialCharactersText,
+    Strikethrough,
+    Style,
+    Subscript,
+    Superscript,
+    Table,
+    TableCaption,
+    TableCellProperties,
+    TableColumnResize,
+    TableProperties,
+    TableToolbar,
+    TextPartLanguage,
+    TextTransformation,
+    Title,
+    TodoList,
+    Underline,
+    WordCount,
+    SourceEditing,
+  } = cloud.CKEditor;
+
+  return (
+    <div className="min-h-screen p-8 font-[family-name:var(--font-geist-sans)]">
+      <main>
+        <CKEditor
+          editor={BalloonEditor}
+          config={{
+            licenseKey:
+              "eyJhbGciOiJFUzI1NiJ9.eyJleHAiOjE3NDQwNzAzOTksImp0aSI6IjM5YjY2NjNjLWNkMGYtNGYxZS04OWZlLTFjMTNjNzRlZjE2MCIsInVzYWdlRW5kcG9pbnQiOiJodHRwczovL3Byb3h5LWV2ZW50LmNrZWRpdG9yLmNvbSIsImRpc3RyaWJ1dGlvbkNoYW5uZWwiOlsiY2xvdWQiLCJkcnVwYWwiLCJzaCJdLCJ3aGl0ZUxhYmVsIjp0cnVlLCJsaWNlbnNlVHlwZSI6InRyaWFsIiwiZmVhdHVyZXMiOlsiKiJdLCJ2YyI6IjcxY2Q5YTgyIn0.eIb8uYmHheeyrXVu4E3S2r_BHR3E3wQ28NCl0emOjYhf3adF4nbztvMev62Y_NTbeZp6dCMXKuhyXjCAfn2uTg",
+            plugins: [
+              Alignment,
+              AutoImage,
+              AutoLink,
+              Autosave,
+              BlockQuote,
+              BlockToolbar,
+              Bold,
+              Bookmark,
+              Code,
+              CodeBlock,
+              Essentials,
+              FindAndReplace,
+              FontBackgroundColor,
+              FontColor,
+              FontFamily,
+              FontSize,
+              GeneralHtmlSupport,
+              Heading,
+              HorizontalLine,
+              HtmlComment,
+              HtmlEmbed,
+              ImageBlock,
+              ImageCaption,
+              ImageInline,
+              ImageInsert,
+              ImageInsertViaUrl,
+              ImageResize,
+              ImageStyle,
+              ImageTextAlternative,
+              ImageToolbar,
+              ImageUpload,
+              Indent,
+              IndentBlock,
+              Italic,
+              Link,
+              LinkImage,
+              List,
+              ListProperties,
+              MediaEmbed,
+              Mention,
+              PageBreak,
+              Paragraph,
+              PasteFromOffice,
+              RemoveFormat,
+              ShowBlocks,
+              SimpleUploadAdapter,
+              SpecialCharacters,
+              SpecialCharactersArrows,
+              SpecialCharactersCurrency,
+              SpecialCharactersEssentials,
+              SpecialCharactersLatin,
+              SpecialCharactersMathematical,
+              SpecialCharactersText,
+              Strikethrough,
+              Style,
+              Subscript,
+              Superscript,
+              Table,
+              TableCaption,
+              TableCellProperties,
+              TableColumnResize,
+              TableProperties,
+              TableToolbar,
+              TextPartLanguage,
+              TextTransformation,
+              Title,
+              TodoList,
+              Underline,
+              WordCount,
+              SourceEditing,
+            ],
+            toolbar: {
+              items: [
+                "alignment",
+                "|",
+                "fontSize",
+                "fontColor",
+                "fontBackgroundColor",
+                "|",
+                "link",
+                "code",
+                "bold",
+                "italic",
+                "underline",
+                "strikethrough",
+                "|",
+                "specialCharacters",
+                "horizontalLine",
+                "bookmark",
+                "highlight",
+                "|",
+                "outdent",
+                "indent",
+              ],
+              shouldNotGroupWhenFull: false,
+            },
+            blockToolbar: [
+              "heading",
+              "|",
+              "blockQuote",
+              "htmlEmbed",
+              "codeBlock",
+              "|",
+              "mediaEmbed",
+              "insertImage",
+              "insertTable",
+              "|",
+              "bulletedList",
+              "numberedList",
+              "todoList",
+            ],
+            fontFamily: {
+              supportAllValues: true,
+            },
+            fontSize: {
+              options: [10, 12, 14, "default", 18, 20, 22],
+              supportAllValues: true,
+            },
+            heading: {
+              options: [
+                {
+                  model: "paragraph",
+                  title: "Paragraph",
+                  class: "ck-heading_paragraph",
+                },
+                {
+                  model: "heading1",
+                  view: "h1",
+                  title: "Heading 1",
+                  class: "ck-heading_heading1",
+                },
+                {
+                  model: "heading2",
+                  view: "h2",
+                  title: "Heading 2",
+                  class: "ck-heading_heading2",
+                },
+                {
+                  model: "heading3",
+                  view: "h3",
+                  title: "Heading 3",
+                  class: "ck-heading_heading3",
+                },
+                {
+                  model: "heading4",
+                  view: "h4",
+                  title: "Heading 4",
+                  class: "ck-heading_heading4",
+                },
+                {
+                  model: "heading5",
+                  view: "h5",
+                  title: "Heading 5",
+                  class: "ck-heading_heading5",
+                },
+                {
+                  model: "heading6",
+                  view: "h6",
+                  title: "Heading 6",
+                  class: "ck-heading_heading6",
+                },
+              ],
+            },
+            htmlSupport: {
+              allow: [
+                {
+                  name: /^.*$/,
+                  styles: true,
+                  attributes: true,
+                  classes: true,
+                },
+              ],
+            },
+            image: {
+              toolbar: [
+                "toggleImageCaption",
+                "imageTextAlternative",
+                "|",
+                "imageStyle:inline",
+                "imageStyle:wrapText",
+                "imageStyle:breakText",
+                "|",
+                "resizeImage",
+              ],
+            },
+            simpleUpload: {
+              uploadUrl: "/api/upload",
+              withCredentials: false,
+            },
+            htmlEmbed: {
+              showPreviews: true,
+            },
+            initialData:
+              '<h2>Congratulations on setting up CKEditor 5! 🎉</h2>\n<p>\n\tYou\'ve successfully created a CKEditor 5 project. This powerful text editor\n\twill enhance your application, enabling rich text editing capabilities that\n\tare customizable and easy to use.\n</p>\n<h3>What\'s next?</h3>\n<ol>\n\t<li>\n\t\t<strong>Integrate into your app</strong>: time to bring the editing into\n\t\tyour application. Take the code you created and add to your application.\n\t</li>\n\t<li>\n\t\t<strong>Explore features:</strong> Experiment with different plugins and\n\t\ttoolbar options to discover what works best for your needs.\n\t</li>\n\t<li>\n\t\t<strong>Customize your editor:</strong> Tailor the editor\'s\n\t\tconfiguration to match your application\'s style and requirements. Or\n\t\teven write your plugin!\n\t</li>\n</ol>\n<p>\n\tKeep experimenting, and don\'t hesitate to push the boundaries of what you\n\tcan achieve with CKEditor 5. Your feedback is invaluable to us as we strive\n\tto improve and evolve. Happy editing!\n</p>\n<h3>Helpful resources</h3>\n<ul>\n\t<li>📝 <a href="https://portal.ckeditor.com/checkout?plan=free">Trial sign up</a>,</li>\n\t<li>📕 <a href="https://ckeditor.com/docs/ckeditor5/latest/installation/index.html">Documentation</a>,</li>\n\t<li>⭐️ <a href="https://github.com/ckeditor/ckeditor5">GitHub</a> (star us if you can!),</li>\n\t<li>🏠 <a href="https://ckeditor.com">CKEditor Homepage</a>,</li>\n\t<li>🧑‍💻 <a href="https://ckeditor.com/ckeditor-5/demo/">CKEditor 5 Demos</a>,</li>\n</ul>\n<h3>Need help?</h3>\n<p>\n\tSee this text, but the editor is not starting up? Check the browser\'s\n\tconsole for clues and guidance. It may be related to an incorrect license\n\tkey if you use premium features or another feature-related requirement. If\n\tyou cannot make it work, file a GitHub issue, and we will help as soon as\n\tpossible!\n</p>\n',
+          }}
+        />
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }
